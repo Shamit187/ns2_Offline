@@ -1,11 +1,18 @@
 tclFile=tclScript.tcl
 awkFile=parse.awk
 pythonFile=graphGenerator.py
+areaFolder=area_15
+nodeFolder=node_15
+flowFolder=flow_15
 
 if [[ $1 == "802.11" ]]
 then
     tclFile=tclScript_802_11.tcl
+    areaFolder=area_11
+    nodeFolder=node_11
+    flowFolder=flow_11
 fi
+
 
 #variation parameters
 area=(250 300 350 400 450 500 550 600 650 700 750 800 850 900 950 1000 1050 1100 1150 1200 1250)
@@ -21,7 +28,7 @@ do
     awk -f $awkFile trace.tr
 done
 
-python3 $pythonFile output.txt area
+python3 $pythonFile output.txt $areaFolder
 
 #Node Size Variation
 >output.txt
@@ -32,7 +39,7 @@ do
     awk -f $awkFile trace.tr
 done
 
-python3 $pythonFile output.txt node
+python3 $pythonFile output.txt $nodeFolder
 
 #Flow Size Variation
 >output.txt 
@@ -43,4 +50,4 @@ do
     awk -f $awkFile trace.tr
 done
 
-python3 $pythonFile output.txt flow
+python3 $pythonFile output.txt $flowFolder

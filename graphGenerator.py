@@ -31,7 +31,6 @@ for i in range(size):
     delratio.append(float(string_data[2])) 
     dropratio.append(float(string_data[3])) 
 
-print(variable)
 lists = [throughput, delay, delratio, dropratio]
 
 for i in range(4):

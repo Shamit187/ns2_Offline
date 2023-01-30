@@ -199,5 +199,4 @@ proc finish {} {
 $ns at [expr 53] "finish"
 
 # Run simulation
-puts "Simulation starting"
 $ns run

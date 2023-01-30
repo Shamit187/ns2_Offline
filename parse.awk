@@ -62,16 +62,14 @@ BEGIN {
 END {
     end_time = time_sec;
     simulation_time = end_time - start_time;
+    # print "Sent Packets: ", sent_packets;
+    # print "Dropped Packets: ", dropped_packets;
+    # print "Received Packets: ", received_packets;
 
-    print "Sent Packets: ", sent_packets;
-    print "Dropped Packets: ", dropped_packets;
-    print "Received Packets: ", received_packets;
-
-    print "-------------------------------------------------------------";
-    print "Throughput: ", (received_bytes * 8) / simulation_time, "bits/sec";
-    print "Average Delay: ", (total_delay / received_packets), "seconds";
-    print "Delivery ratio: ", (received_packets / sent_packets);
-    print "Drop ratio: ", (dropped_packets / sent_packets);
-
+    # print "-------------------------------------------------------------";
+    # print "Throughput: ", (received_bytes * 8) / simulation_time, "bits/sec";
+    # print "Average Delay: ", (total_delay / received_packets), "seconds";
+    # print "Delivery ratio: ", (received_packets / sent_packets);
+    # print "Drop ratio: ", (dropped_packets / sent_packets);
     print (received_bytes * 8) / simulation_time,(total_delay / received_packets),(received_packets / sent_packets),(dropped_packets / sent_packets)>> "output.txt";
 }

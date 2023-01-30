@@ -13,6 +13,17 @@ then
     flowFolder=flow_11
 fi
 
+if ! [[ -e $areaFolder ]]; then
+    mkdir $areaFolder
+fi
+if ! [[ -e $nodeFolder ]]; then
+    mkdir $nodeFolder
+fi
+if ! [[ -e $flowFolder ]]; then
+    mkdir $flowFolder
+fi
+
+
 
 #variation parameters
 area=(250 300 350 400 450 500 550 600 650 700 750 800 850 900 950 1000 1050 1100 1150 1200 1250)

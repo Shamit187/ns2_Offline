@@ -73,8 +73,5 @@ END {
     print "Delivery ratio: ", (received_packets / sent_packets);
     print "Drop ratio: ", (dropped_packets / sent_packets);
 
-    print (received_bytes * 8) / simulation_time >> "output.txt";
-    print (total_delay / received_packets) >> "output.txt";
-    print (received_packets / sent_packets) >> "output.txt";
-    print (dropped_packets / sent_packets) >> "output.txt";
+    print (received_bytes * 8) / simulation_time,(total_delay / received_packets),(received_packets / sent_packets),(dropped_packets / sent_packets)>> "output.txt";
 }

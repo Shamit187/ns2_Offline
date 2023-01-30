@@ -6,16 +6,16 @@ set val(ant)            Antenna/OmniAntenna      ;# Antenna type
 set val(ll)             LL                       ;# Link layer type
 set val(ifq)            CMUPriQueue              ;# Interface queue type
 set val(ifqlen)         50                       ;# max packet in ifq
-set val(netif)          Phy/WirelessPhy          ;# network interface type
-set val(mac)            Mac/802_11               ;# MAC type
+set val(netif)          Phy/WirelessPhy/802_15_4          ;# network interface type
+set val(mac)            Mac/802_15_4               ;# MAC type
 set val(rp)             DSR                      ;# ad-hoc routing protocol 
 set val(nn)             [lindex $argv 0]         ;# number of mobilenodes
 set val(nf)             [lindex $argv 1]         ;# number of flows
-set val(energymodel)    EnergyModel
-set val(initialenergy)  3                        ;# Initial energy in Joules
+set val(energymodel)    "EnergyModel"
+set val(initialenergy)  5                        ;# Initial energy in Joules
 set val(idlepower)      0.45                     ;#LEAP (802.11g)
-set val(rxpower)        1                        ;#LEAP (802.11g)
-set val(txpower)        1                        ;#LEAP (802.11g)
+set val(rxpower)        0.9                        ;#LEAP (802.11g)
+set val(txpower)        0.9                        ;#LEAP (802.11g)
 set val(sleeppower)     0.05                     ;#LEAP (802.11g)
 set val(setX)           [lindex $argv 2]
 set val(setY)           [lindex $argv 3]
@@ -80,11 +80,11 @@ $ns node-config -addressingType flat \
                 -agentTrace ON \
                 -routerTrace ON \
                 -macTrace ON \
-                -movementTrace OFF 
-                # -energyModel $val(energymodel) \
-                # -initialEnergy $val(initialenergy) \
-                # -rxPower $val(rxpower) \
-                # -txPower $val(txpower)
+                -movementTrace OFF \
+                -energyModel $val(energymodel) \
+                -initialEnergy $val(initialenergy) \
+                -rxPower $val(rxpower) \
+                -txPower $val(txpower)
 
 
 # create nodes
@@ -99,8 +99,8 @@ for {set i 0} {$i < $val(nn) } {incr i} {
 
     $ns initial_node_pos $node($i) 20
 
-    set destX [expr round(rand()*$val(setX)) ]
-    set destY [expr round(rand()*$val(setY))]
+    set destX [expr (round(rand()*$val(setX))/2) + 50 ]
+    set destY [expr (round(rand()*$val(setY))/2) + 50 ]
     set speed [expr round(rand()*4) + 1]
 
     $ns at 20.0 "$node($i) setdest $destX $destY $speed"
@@ -156,8 +156,9 @@ for {set i 0} {$i < $val(nf)} {incr i} {
 
     set tcp [new Agent/TCP/Reno]
     # $tcp set class_ 0
-    # $tcp set window_ 100
-    # $tcp set packetSize_ 512
+    $tcp set window_ 50
+    $tcp set packetSize_ 50
+    
 
     $ns attach-agent $node($src) $tcp
 
